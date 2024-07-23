@@ -12,17 +12,18 @@ export const useSettingsStore = defineStore("settings", () => {
     accKeyId: "",
     secretAccKey: "",
     region: "",
+    keyPrefix: "",
     pubUrl: "",
   } satisfies S3Settings as S3Settings);
   const app = useLocalStorage("app-settings", {
-    enableAutoRefresh: false,
+    enableAutoRefresh: true,
     enableFuzzySearch: true,
     fuzzySearchThreshold: 0.6,
     convertType: "none",
     compressionMaxSize: "",
     compressionMaxWidthOrHeight: "",
     keyTemplate: "",
-    noLongerShowRootPage: false,
+    noLongerShowRootPage: true,
   } satisfies AppSettings as AppSettings);
 
   const validity = computed(() => ({

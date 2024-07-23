@@ -17,9 +17,5 @@ export default async function (
     useWebWorker: true,
     fileType,
   });
-  // console.log(
-  //   `File compressed from ${file.size} to ${compressedFile.size},\n` +
-  //   `from ${file.type} to ${compressedFile.type}`
-  // );
   return compressedFile;
 }

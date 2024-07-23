@@ -59,27 +59,6 @@ const currentDisplayed = computed(() =>
     page.value * imagePerPage,
   ),
 );
-/**
- * Brief explanation of the following masonry layout
- *
- * First, the calculation is encapsulated in the composable `useMasonry`.
- * The most important param it takes is an array of image natural sizes, which
- * should be sorted in the same order as the images in the DOM.
- *
- * And actually, the hardest part is to get the responsive size of the images.
- * I encountered many counterintuitive behaviors in reactive part of Vue.
- * Finally, my choice is to ask child components to calculate their own natural
- * sizes (need to be reactive; watching it from parent component don't work for
- * unknown reason) and expose them to parent components.
- * Then the watchEffect hook in this component will collect the natural sizes they
- * exposed, sort (because the order of ref array in v-for is not guaranteed
- * to be the same as dom), give them default size if they are not ready, and
- * pass them to the `useMasonry` composable.
- *
- * Another notable part is that the watchEffect must watch the `currentDisplayed`,
- * because when images are just added or deleted, the natural sizes of child
- * components are not changed, but the place they should be in the list is changed.
- */
 
 type Size = [number, number];
 const defaultImageSize: Size = [384, 208];
@@ -95,7 +74,6 @@ useResizeObserver(imageWrapper, (entries) => {
 const deBouncedWrapperWidth = refDebounced(wrapperWidth, 300);
 
 // Calculate the natural size of images
-
 const imageNaturalSize = computed(() => {
   const sortedPhotoCardRefs = currentDisplayed.value.map((photo) => {
     return photoCardRefs.value.find((ref) => ref?.key === photo.Key);

@@ -15,7 +15,7 @@
           alt="favicon"
           class="h-6 pointer-events-none"
         />
-        <span class="text-xl font-bold hidden md:block">S3 Image Port</span>
+        <span class="text-xl font-bold hidden md:block">S3 Image Platform</span>
       </ULink>
       <div class="flex space-x-4 font-semibold">
         <ULink
@@ -98,16 +98,6 @@
             </div>
           </template>
         </UPopover>
-
-        <UButton
-          icon="i-mingcute-github-fill"
-          size="md"
-          color="primary"
-          square
-          variant="ghost"
-          target="_blank"
-          to="https://github.com/yy4382/s3-image-port"
-        />
       </div>
     </nav>
   </UContainer>

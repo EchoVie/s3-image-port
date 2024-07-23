@@ -62,11 +62,6 @@ const items = computed(() => [
     type: "pureLink",
     links: uploadedLinks.value.map((link) => link.link),
     label: t("upload.uploadedLinks.pureLink.title"),
-  },
-  {
-    type: "markdown",
-    links: uploadedLinks.value.map((link) => `![${link.name}](${link.link})`),
-    label: t("upload.uploadedLinks.markdown.title"),
-  },
+  }
 ]);
 </script>

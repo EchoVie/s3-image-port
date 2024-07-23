@@ -26,9 +26,7 @@
     "description": "Upload, view and delete images in your S3 bucket with ease",
     "comment": "Also works with lots of S3-compatible services",
     "actions": {
-      "getStarted": "Get Started",
-      "readDocs": "Read Docs",
-      "viewSource": "View Source"
+      "getStarted": "Get Started"
     },
     "noLongerShow": "Don't show this page again",
     "toast": {
@@ -50,9 +48,6 @@
     "uploadedLinks": {
       "pureLink": {
         "title": "Link"
-      },
-      "markdown": {
-        "title": "Markdown"
       }
     },
     "message": {
@@ -171,25 +166,10 @@
     "title": "Settings",
     "s3": {
       "title": "S3 Settings",
-      "info": {
-        "privacy": {
-          "title": "Privacy Statement",
-          "description": "All data on this site is stored in your local browser and is not uploaded to a server."
-        },
-        "howTo": {
-          "title": "How to fill in these fields?",
-          "description": {
-            "part1": "Please check out our ",
-            "part2": "documentation",
-            "part3": "."
-          }
-        }
-      },
       "form": {
         "endpoint": {
           "title": "Endpoint",
-          "description": "The URL of the S3 endpoint. Bucket name is not included.",
-          "error": "Your S3 endpoint is required."
+          "description": "The URL of the S3 endpoint. Bucket name is not included."
         },
         "bucketName": {
           "title": "Bucket Name",
@@ -209,13 +189,18 @@
           "title": "Secret Access Key",
           "error": "Your secret access key is required."
         },
+        "keyPrefix": {
+          "title": "Key Prefix",
+          "description": "The prefix of the S3 key (path) of the uploaded file",
+          "placeholder": "a/b/c"
+        },
         "publicUrl": {
           "title": "Public URL",
           "optional": "Optional",
-          "description": "Prefix of URL to access the image.",
+          "description": "The public URL to access the image.",
           "descriptionExtended": {
             "line1": "By default, the output URL will be constructed based on `Endpoint/BucketName/PathToImage`.",
-            "line2": "If you have a custom domain pointing to the bucket, or the image file cannot be accessed by endpoint url (e.g. R2), you can specify the custom domain here. It will be constructed into `PublicUrl/PathToImage`."
+            "line2": "You can specify the custom domain here. It will be constructed into `PublicUrl/PathToImage`."
           }
         }
       },

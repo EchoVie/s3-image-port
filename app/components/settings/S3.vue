@@ -78,39 +78,6 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <div class="flex flex-col space-y-2 my-4">
-    <UAlert
-      :title="$t('settings.s3.info.privacy.title')"
-      :description="$t('settings.s3.info.privacy.description')"
-    />
-    <UAlert
-      v-if="
-        !state.endpoint ||
-        !state.bucket ||
-        !state.region ||
-        !state.accKeyId ||
-        !state.secretAccKey
-      "
-      :title="$t('settings.s3.info.howTo.title')"
-    >
-      <template #description>
-        <span>{{ $t("settings.s3.info.howTo.description.part1") }}</span>
-        <ULink
-          :to="
-            $i18n.locale === 'zh'
-              ? 'https://docs.iport.yfi.moe/zh/guide/getting-started'
-              : 'https://docs.iport.yfi.moe/guide/getting-started'
-          "
-          inactive-class="text-primary-500 dark:text-primary-400
-          hover:text-primary-600 dark:hover:text-primary-500 hover:underline
-          hover:underline-offset-2 transition-colors"
-        >
-          {{ $t("settings.s3.info.howTo.description.part2") }}</ULink
-        >
-        <span>{{ $t("settings.s3.info.howTo.description.part3") }}</span>
-      </template>
-    </UAlert>
-  </div>
   <UForm
     ref="form"
     :schema="s3SettingsSchema"
@@ -118,22 +85,6 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
     class="space-y-4"
     @submit="onSubmit"
   >
-    <UFormGroup
-      v-slot="{ error }"
-      :label="$t('settings.s3.form.endpoint.title')"
-      :description="$t('settings.s3.form.endpoint.description')"
-      name="endpoint"
-      required
-      :error="!state.endpoint && $t('settings.s3.form.endpoint.error')"
-    >
-      <UInput
-        v-model="state.endpoint"
-        :trailing-icon="
-          error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined
-        "
-      />
-    </UFormGroup>
-
     <UFormGroup
       v-slot="{ error }"
       :label="$t('settings.s3.form.bucketName.title')"
@@ -155,7 +106,6 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       :label="$t('settings.s3.form.region.title')"
       :description="$t('settings.s3.form.region.description')"
       name="region"
-      required
       :error="!state.region && $t('settings.s3.form.region.error')"
     >
       <UInput
@@ -218,6 +168,27 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
     </UFormGroup>
 
     <UFormGroup
+      :label="$t('settings.s3.form.keyPrefix.title')"
+      :description="$t('settings.s3.form.keyPrefix.description')"
+      name="keyPrefix"
+    >
+      <UInput
+        v-model="state.keyPrefix"
+        :placeholder="$t('settings.s3.form.keyPrefix.placeholder')"
+      />
+    </UFormGroup>
+
+    <UFormGroup
+      :label="$t('settings.s3.form.endpoint.title')"
+      :description="$t('settings.s3.form.endpoint.description')"
+      name="endpoint"
+    >
+      <UInput
+        v-model="state.endpoint"
+      />
+    </UFormGroup>
+
+    <UFormGroup
       :label="$t('settings.s3.form.publicUrl.title')"
       :hint="$t('settings.s3.form.publicUrl.optional')"
       name="pubUrl"
@@ -228,11 +199,10 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
             {{ $t("settings.s3.form.publicUrl.description") }}
             <UPopover mode="hover">
               <UButton
-                icon="i-mingcute-information-line"
-                size="2xs"
-                color="primary"
-                square
-                variant="link"
+                icon="i-mingcute-question-fill"
+                size="xs"
+                :padded="false"
+                class="ml-1 mt-px"
               />
               <template #panel>
                 <UCard
@@ -255,24 +225,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       <UInput v-model="state.pubUrl" />
     </UFormGroup>
 
-    <div class="flex flex-row justify-between">
-      <div class="flex flex-row gap-2 items-center justify-start">
-        <UTooltip :text="$t('settings.s3.submitFormButton.icons.upload')">
-          <UChip :color="uploadChipColor">
-            <UIcon name="i-mingcute-file-upload-line" class="text-xl" />
-          </UChip>
-        </UTooltip>
-        <UTooltip :text="$t('settings.s3.submitFormButton.icons.list')">
-          <UChip :color="listChipColor">
-            <UIcon name="i-mingcute-directory-line" class="text-xl" />
-          </UChip>
-        </UTooltip>
-        <UTooltip :text="$t('settings.s3.submitFormButton.icons.delete')">
-          <UChip :color="deleteChipColor">
-            <UIcon name="i-mingcute-delete-2-line" class="text-xl" />
-          </UChip>
-        </UTooltip>
-      </div>
+    <div class="flex flex-row justify-end">
       <UButton type="submit" :loading="isTestingConnectivity">
         {{ $t("settings.s3.submitFormButton.title") }}
       </UButton>

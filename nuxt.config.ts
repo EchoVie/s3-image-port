@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: [
     "@nuxt/ui",
     "@vueuse/nuxt",
@@ -12,7 +12,6 @@ export default defineNuxtConfig({
   ui: {
     icons: ["mingcute"],
   },
-  css: ["~/assets/css/global.css"],
   routeRules: {
     "/": { prerender: true },
     "/*/upload": { ssr: false },
