@@ -60,7 +60,7 @@
       @click="
         () => {
           if (selectMode) modalOpen = true;
-          else copy(photo);
+          else copyText(photo);
         }
       "
     />
@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import { type Photo } from "~/types";
+import copy from 'clipboard-copy'
 const loadedImage = ref<null | HTMLImageElement>(null);
 const rootDiv = ref<HTMLDivElement | null>(null);
 const props = defineProps<{
@@ -106,8 +107,8 @@ const modalOpen = ref(false);
 
 const toast = useToast();
 const { t } = useI18n();
-function copy(photo: Photo) {
-  navigator.clipboard.writeText(photo.url);
+function copyText(photo: Photo) {
+  copy(photo.url);
   toast.add({ title: t("photos.message.copyLink.title") });
 }
 useResizeObserver(rootDiv, (entries) => {

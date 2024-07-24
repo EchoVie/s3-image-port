@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
-    "start": "node .output/server/index.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -46,6 +45,7 @@
     "@vueuse/integrations": "^10.9.0",
     "axios": "^1.7.2",
     "browser-image-compression": "^2.0.2",
+    "clipboard-copy": "^4.0.1",
     "date-fns": "^3.6.0",
     "fuse.js": "^7.0.0",
     "luxon": "^3.4.4",
