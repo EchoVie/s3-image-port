@@ -1,7 +1,3 @@
-<!--
-  The current behavior is: 
-  - to add the selected file if it's via either drag and drop or file dialog
--->
 <template>
   <div>
     <div
@@ -14,7 +10,7 @@
       @click="open()"
     >
       <div
-        class="flex flex-col p-10 space-y-2"
+        class="flex flex-col p-40 space-y-2"
         :class="isOverDropZone && 'translate-x-[1px]'"
       >
         <div class="flex justify-center">

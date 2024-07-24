@@ -33,7 +33,7 @@
         }
       "
     ></div>
-    <UCheckbox
+    <!-- <UCheckbox
       v-model="selected"
       class="absolute top-4 left-4 hover-to-show"
       :class="selected && '!opacity-100 !pointer-events-auto'"
@@ -41,7 +41,7 @@
         container: 'h-6',
         base: 'w-6 h-6',
       }"
-    />
+    /> -->
     <div class="hover-to-show absolute left-4 bottom-4">
       <PhotoCardInfo
         v-if="width"
@@ -56,7 +56,7 @@
       :aria-label="selectMode ? 'Open fullscreen' : 'Copy Link'"
       :icon="selectMode ? 'i-mingcute-zoom-in-line' : 'i-mingcute-copy-2-line'"
       color="gray"
-      class="absolute bottom-4 right-4 hover-to-show"
+      class="absolute top-4 right-4 hover-to-show"
       @click="
         () => {
           if (selectMode) modalOpen = true;

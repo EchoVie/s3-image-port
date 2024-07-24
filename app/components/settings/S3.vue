@@ -12,67 +12,20 @@ const form = ref();
 const showAccessKeyId = ref(false);
 const showSecretAccessKey = ref(false);
 
-const uploadChipColor = ref<"green" | "red" | "gray">("gray");
-const listChipColor = ref<"green" | "red" | "gray">("gray");
-const deleteChipColor = ref<"green" | "red" | "gray">("gray");
-
 const isTestingConnectivity = ref(false);
 
 type Schema = z.output<typeof s3SettingsSchema>;
-
-const failActions = [
-  {
-    label: t("settings.s3.submitFormButton.message.fail.actionLabel"),
-    click: () => {
-      window.open(
-        t("settings.s3.submitFormButton.message.fail.actionLink"),
-        "_blank",
-      );
-    },
-  },
-];
 
 async function onSubmit(_event: FormSubmitEvent<Schema>) {
   isTestingConnectivity.value = true;
   toast.add({
     title: t("settings.s3.submitFormButton.message.try.title"),
   });
-  const { get, upload, delete: del, list } = await settings.test();
-  if (!get) {
-    toast.add({
-      title: t("settings.s3.submitFormButton.message.fail.title"),
-      // prettier-ignore
-      description: t("settings.s3.submitFormButton.message.fail.desc4configOrCors"),
-      actions: failActions,
-    });
-    uploadChipColor.value = "red";
-    listChipColor.value = "red";
-    deleteChipColor.value = "red";
-    isTestingConnectivity.value = false;
-    return;
-  }
-
-  uploadChipColor.value = upload ? "green" : "red";
-  listChipColor.value = list ? "green" : "red";
-  deleteChipColor.value = del ? "green" : "red";
-
+  await settings.test();
   isTestingConnectivity.value = false;
 
-  const i18nSectionInToast = (() => {
-    if (upload && list && del) {
-      return "success";
-    } else if (!upload && !list && !del) {
-      return "fail";
-    } else {
-      return "warning";
-    }
-  })();
   toast.add({
-    // prettier-ignore
-    title: t(`settings.s3.submitFormButton.message.${i18nSectionInToast}.title`),
-    // prettier-ignore
-    description: t(`settings.s3.submitFormButton.message.${i18nSectionInToast}.description`),
-    actions: i18nSectionInToast === "success" ? undefined : failActions,
+    title: t(`settings.s3.submitFormButton.message.success.title`),
   });
 }
 </script>
@@ -171,6 +124,8 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       :label="$t('settings.s3.form.keyPrefix.title')"
       :description="$t('settings.s3.form.keyPrefix.description')"
       name="keyPrefix"
+      required
+      :error="!state.keyPrefix && $t('settings.s3.form.keyPrefix.error')"
     >
       <UInput
         v-model="state.keyPrefix"
@@ -183,26 +138,21 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       :description="$t('settings.s3.form.endpoint.description')"
       name="endpoint"
     >
-      <UInput
-        v-model="state.endpoint"
-      />
+      <UInput v-model="state.endpoint" />
     </UFormGroup>
 
-    <UFormGroup
-      :label="$t('settings.s3.form.publicUrl.title')"
-      :hint="$t('settings.s3.form.publicUrl.optional')"
-      name="pubUrl"
-    >
+    <UFormGroup :label="$t('settings.s3.form.publicUrl.title')" name="pubUrl">
       <template #description>
         <div>
           <span class="inline-flex items-center">
             {{ $t("settings.s3.form.publicUrl.description") }}
             <UPopover mode="hover">
               <UButton
-                icon="i-mingcute-question-fill"
-                size="xs"
-                :padded="false"
-                class="ml-1 mt-px"
+                icon="i-mingcute-information-line"
+                size="2xs"
+                color="primary"
+                square
+                variant="link"
               />
               <template #panel>
                 <UCard

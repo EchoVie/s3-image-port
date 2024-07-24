@@ -20,27 +20,11 @@
               :processed-size
               @process-file="onProcessFile"
             />
-            <UButton
-              icon="i-mingcute-edit-2-line"
-              color="white"
-              variant="solid"
-              block
-              @click="modalOpen = true"
-            >
-              Edit Config
-            </UButton>
             <img :src="previewImage" class="w-72" />
           </div>
         </template>
       </UPopover>
       <span class="transition-all flex gap-1 flex-shrink-0">
-        <UButton
-          icon="i-mingcute-edit-2-line"
-          size="sm"
-          color="white"
-          variant="solid"
-          @click="modalOpen = true"
-        />
         <UButton
           size="sm"
           color="white"
@@ -50,83 +34,10 @@
         />
       </span>
     </div>
-
-    <UModal v-model="modalOpen">
-      <UCard>
-        <UploadPreviewInfo
-          :key-str="key"
-          :processed-size
-          class="mb-4"
-          @process-file="onProcessFile"
-        />
-        <div class="flex flex-col gap-4">
-          <UFormGroup :label="$t('settings.app.keyTemplate.title')">
-            <UInput v-model="config.keyTemplate" />
-          </UFormGroup>
-          <!--convert-->
-          <UFormGroup
-            :label="$t('settings.app.convert.title')"
-            :description="$t('settings.app.convert.description')"
-            name="convertType"
-          >
-            <USelectMenu
-              v-model="config.convertType"
-              :options="Array.from(convertTypes)"
-            />
-          </UFormGroup>
-          <!--compress-->
-          <div>
-            <div
-              class="flex content-center items-center justify-between text-sm"
-            >
-              {{ $t("settings.app.compress.title") }}
-            </div>
-            <p class="text-gray-500 dark:text-gray-400 text-sm">
-              {{ $t("settings.app.compress.description") }}
-            </p>
-            <div class="flex flex-row gap-2 mt-1">
-              <UFormGroup name="compressionMaxSize" class="w-full">
-                <UInput
-                  v-model="config.compressionMaxSize"
-                  :placeholder="
-                    $t('settings.app.compress.options.maxSize.title')
-                  "
-                  type="number"
-                  min="0"
-                >
-                  <template #trailing>
-                    <span class="text-gray-500 dark:text-gray-400 text-xs"
-                      >MB</span
-                    >
-                  </template>
-                </UInput>
-              </UFormGroup>
-              <UFormGroup name="compressionMaxWidthOrHeight" class="w-full">
-                <UInput
-                  v-model="config.compressionMaxWidthOrHeight"
-                  :placeholder="
-                    $t('settings.app.compress.options.maxWidthOrHeight.title')
-                  "
-                  type="number"
-                  min="1"
-                >
-                  <template #trailing>
-                    <span class="text-gray-500 dark:text-gray-400 text-xs"
-                      >px</span
-                    >
-                  </template>
-                </UInput>
-              </UFormGroup>
-            </div>
-          </div>
-        </div>
-      </UCard>
-    </UModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { convertTypes } from "~/types";
 import type { UploadFileConfig } from "~/types";
 const settingsStore = useSettingsStore();
 
@@ -146,6 +57,7 @@ const key = computed(() =>
   genKey(file.value, {
     keyTemplate: config.value.keyTemplate,
     type: config.value.convertType,
+    prefix: settingsStore.s3.keyPrefix,
   }),
 );
 
@@ -182,8 +94,6 @@ const upload = async (finishedEachCb?: FinishEachCb) => {
 };
 
 defineExpose({ key, upload });
-
-const modalOpen = ref(false);
 
 const previewImage = computed(() => {
   if (!file.value) return "";

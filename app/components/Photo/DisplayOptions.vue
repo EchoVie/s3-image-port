@@ -304,7 +304,7 @@ function isRangeSelected(duration: Duration) {
 }
 
 // sort
-const sortBy: Ref<SortByOpts> = ref("key");
+const sortBy: Ref<SortByOpts> = ref("date");
 const sortOrderIsDescending: Ref<boolean> = ref(true);
 const sortByOptions = ["key", "date"];
 

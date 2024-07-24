@@ -45,11 +45,6 @@
       },
       "uploadButton": "上传"
     },
-    "uploadedLinks": {
-      "pureLink": {
-        "title": "纯链接"
-      }
-    },
     "message": {
       "copied": "已复制！",
       "fileTypeNotSupported": {
@@ -192,11 +187,11 @@
         "keyPrefix": {
           "title": "Key Prefix",
           "description": "S3 存储桶中文件路径的前缀",
-          "placeholder": "a/b/c"
+          "placeholder": "a/b/c",
+          "error": "Key Prefix 是必需的。"
         },
         "publicUrl": {
           "title": "Public URL",
-          "optional": "可选",
           "description": "访问图像的链接",
           "descriptionExtended": {
             "line1": "默认情况下，输出 URL 将根据 `Endpoint/BucketName/PathToImage` 来拼接。",
@@ -216,8 +211,7 @@
             "title": "正在测试连通性 ..."
           },
           "success": {
-            "title": "测试连接成功",
-            "description": "所有操作均可使用。"
+            "title": "测试连接成功"
           },
           "warning": {
             "title": "部分权限未获取",
@@ -267,21 +261,11 @@
         "title": "Key（路径）模板",
         "description": "上传文件的 Key（路径）的模板",
         "moreInfo": {
-          "warning": {
-            "title": "警告",
-            "description": "如果 Key（路径）模板不唯一，可能会导致文件覆盖。"
-          },
           "placeholders": {
             "title": "可用占位符",
-            "description": "可用占位符包括 `year`, `month`, `day`, `random`, `filename` 和 `ext`。它们应该被 {'`{{`'} 和 {'`}}`'} 包裹。"
-          },
-          "learnMore": {
-            "part1": "请查看 ",
-            "part2": "Special Note on `Key (Path) Template`",
-            "part3": " 以了解更多信息。"
+            "description": "可用占位符包括 `prefix`, `random`, `filename` 和 `ext`。它们应该被 {'`{{`'} 和 {'`}}`'} 包裹。"
           }
-        },
-        "reset": "重置为默认值"
+        }
       },
       "noLongerShowRootPage": {
         "description": "如果启用，主页将重定向到上传页面。\n页脚中的链接始终可用。",

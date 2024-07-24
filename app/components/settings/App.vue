@@ -114,18 +114,6 @@
             :placeholder="defaultKeyTemplate"
           />
         </div>
-        <UTooltip
-          v-if="!isDefaultKeyTemplate"
-          :text="$t('settings.app.keyTemplate.reset')"
-        >
-          <UButton
-            icon="i-mingcute-close-circle-line"
-            color="red"
-            size="xs"
-            square
-            @click="state.keyTemplate = ''"
-          />
-        </UTooltip>
       </div>
       <template #description>
         <div>
@@ -148,18 +136,6 @@
                   }"
                 >
                   <UAlert
-                    icon="i-heroicons-exclamation-triangle"
-                    color="red"
-                    :title="
-                      $t('settings.app.keyTemplate.moreInfo.warning.title')
-                    "
-                    :description="
-                      $t(
-                        'settings.app.keyTemplate.moreInfo.warning.description',
-                      )
-                    "
-                  />
-                  <UAlert
                     :title="
                       $t('settings.app.keyTemplate.moreInfo.placeholders.title')
                     "
@@ -169,23 +145,6 @@
                       )
                     "
                   />
-                  <p>
-                    {{
-                      $t("settings.app.keyTemplate.moreInfo.learnMore.part1")
-                    }}
-                    <ULink
-                      to="https://github.com/yy4382/s3-image-port/blob/main/README.md#special-note-on-key-path-template"
-                      inactive-class="underline underline-offset-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-                      target="_blank"
-                    >
-                      {{
-                        $t("settings.app.keyTemplate.moreInfo.learnMore.part2")
-                      }}
-                    </ULink>
-                    {{
-                      $t("settings.app.keyTemplate.moreInfo.learnMore.part3")
-                    }}
-                  </p>
                 </UCard>
               </template>
             </UPopover>
@@ -216,10 +175,5 @@ import { convertTypes, appSettingsSchema } from "~/types";
 import { defaultKeyTemplate } from "~/utils/uploadObj";
 
 const { app: state } = storeToRefs(useSettingsStore());
-const isDefaultKeyTemplate = computed(
-  () =>
-    state.value.keyTemplate === defaultKeyTemplate ||
-    state.value.keyTemplate === "",
-);
 const selectMenuOptions = computed(() => convertTypes.map((type) => type));
 </script>

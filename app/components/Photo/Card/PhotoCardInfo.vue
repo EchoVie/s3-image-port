@@ -11,6 +11,7 @@
     </slot>
     <template #panel>
       <div
+        v-if="photo.LastModified || photo.Key"
         class="flex flex-col space-y-1 flex-shrink basis-0 flex-grow min-w-0 p-2"
       >
         <div class="text-sm items-center inline-flex">

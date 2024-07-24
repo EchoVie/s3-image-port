@@ -22,7 +22,7 @@ export const useSettingsStore = defineStore("settings", () => {
     convertType: "none",
     compressionMaxSize: "",
     compressionMaxWidthOrHeight: "",
-    keyTemplate: "",
+    keyTemplate: "{{prefix}}/{{random}}.{{ext}}",
     noLongerShowRootPage: true,
   } satisfies AppSettings as AppSettings);
 
@@ -34,43 +34,15 @@ export const useSettingsStore = defineStore("settings", () => {
       s3SettingsSchema.safeParse(s3.value).success,
   }));
 
-  //MARK: actions
-
-  const test: () => Promise<{
-    get: boolean;
-    list: boolean;
-    delete: boolean;
-    upload: boolean;
-  }> = async () => {
-    debug("Start testing S3 connectivity...");
-    let { testKey, testContent } = generateTestKeyAndContent();
-    debug("Generated test key and content:", testKey, testContent);
+  const test = async () => {
     try {
       let limit = 3;
-      while ((await checkOp.exists(s3.value, testKey)) && limit-- > 0) {
-        debug("Object already exists, generating new test key and content...");
-        ({ testKey, testContent } = generateTestKeyAndContent());
+      while ((await checkOp.list(s3.value)) && limit-- > 0) {
+        debug("Object already exists");
       }
     } catch (e) {
-      console.error("Error occurred while checking if object exists:", e);
-      return {
-        get: false,
-        list: false,
-        delete: false,
-        upload: false,
-      };
+      throw new Error("Error occurred while checking if object exists:", e);
     }
-    debug("Unique test key and content generated.");
-
-    const upload = await checkOp.upload(s3.value, testKey, testContent);
-    const list = await checkOp.list(s3.value);
-    const del = await checkOp.del(s3.value, testKey);
-    return {
-      get: true,
-      upload,
-      list,
-      delete: del,
-    };
   };
 
   const list = (onlyOnce?: boolean) => {
@@ -81,7 +53,7 @@ export const useSettingsStore = defineStore("settings", () => {
     return deleteObj(key, s3.value);
   };
 
-  const upload = (file: File | string, key: string) => {
+  const upload = (file: File | Blob, key: string) => {
     return uploadObj(file, key, s3.value);
   };
 

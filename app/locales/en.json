@@ -45,11 +45,6 @@
       },
       "uploadButton": "Upload"
     },
-    "uploadedLinks": {
-      "pureLink": {
-        "title": "Link"
-      }
-    },
     "message": {
       "copied": "Copied!",
       "fileTypeNotSupported": {
@@ -192,7 +187,8 @@
         "keyPrefix": {
           "title": "Key Prefix",
           "description": "The prefix of the S3 key (path) of the uploaded file",
-          "placeholder": "a/b/c"
+          "placeholder": "a/b/c",
+          "error": "Your key prefix is required."
         },
         "publicUrl": {
           "title": "Public URL",
@@ -265,23 +261,7 @@
       },
       "keyTemplate": {
         "title": "Key (Path) Template",
-        "description": "The key (path) template of the uploaded file.",
-        "moreInfo": {
-          "warning": {
-            "title": "WARNING",
-            "description": "If the new key collides with the existing key, the existing file is OVERWRITTEN!"
-          },
-          "placeholders": {
-            "title": "Available Placeholders",
-            "description": "Available placeholders include `year`, `month`, `day`, `random`, `filename` and `ext`. Should be wrapped with {'`{{`'} and {'`}}`'}."
-          },
-          "learnMore": {
-            "part1": "Check out ",
-            "part2": "Special Note on `Key (Path) Template`",
-            "part3": " for more info."
-          }
-        },
-        "reset": "Reset to default"
+        "description": "The key (path) template of the uploaded file."
       },
       "noLongerShowRootPage": {
         "description": "If enabled, the home page will be redirected to upload page. Link in Footer is always availble.",

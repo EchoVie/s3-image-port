@@ -19,14 +19,14 @@
       size="lg"
       @click="closeModal"
     />
-    <UCheckbox
+    <!-- <UCheckbox
       v-model="selected"
       class="absolute top-4 left-14"
       :ui="{
         container: 'h-6',
         base: 'w-6 h-6',
       }"
-    />
+    /> -->
     <div class="absolute flex justify-center items-center right-2 top-2">
       <!-- Info Button -->
       <PhotoCardInfo :photo="photo" :popper="{ placement: 'bottom-end' }" />
@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import type { Photo } from "~/types";
-const selected = defineModel<boolean>({ required: true });
+// const selected = defineModel<boolean>({ required: true });
 defineProps<{
   photo: Photo;
   closeModal: () => void;

@@ -8,6 +8,5 @@ export default function (s3Settings: S3Settings): S3Client {
       accessKeyId: s3Settings.accKeyId,
       secretAccessKey: s3Settings.secretAccKey,
     },
-    endpoint: s3Settings.endpoint,
   });
 }

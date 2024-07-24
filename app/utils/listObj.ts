@@ -1,5 +1,6 @@
 import { type S3Settings, type Photo } from "~/types";
 import { ListObjectsV2Command } from "@aws-sdk/client-s3";
+
 interface S3Photo {
   Key: string;
   LastModified: Date;
@@ -39,17 +40,18 @@ async function list(
   } catch (e) {
     throw new Error("Failed construct client: " + e);
   }
+
   const command = new ListObjectsV2Command({
     Bucket: config.bucket,
     ContinuationToken: NextContinuationToken,
   });
   const response = await client.send(command);
 
-  // If the HTTP status code is not 200, throw an error
   const httpStatusCode = response.$metadata.httpStatusCode!;
   if (httpStatusCode >= 300) {
     throw new Error(`List operation get http code: ${httpStatusCode}`);
   }
+
   const contents = (response.Contents as S3Photo[])
     .map((photo: S3Photo) => {
       return {
@@ -59,7 +61,7 @@ async function list(
         url: key2Url(photo.Key, config),
       };
     })
-    .filter((photo) => !photo.Key.endsWith("/")) as Photo[];
+    .filter((photo) => photo.Key.startsWith(config.keyPrefix)) as Photo[];
   return {
     contents,
     IsTruncated: response.IsTruncated,
