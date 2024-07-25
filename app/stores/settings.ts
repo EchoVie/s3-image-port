@@ -36,12 +36,9 @@ export const useSettingsStore = defineStore("settings", () => {
 
   const test = async () => {
     try {
-      let limit = 3;
-      while ((await checkOp.list(s3.value)) && limit-- > 0) {
-        debug("Object already exists");
-      }
+      await checkOp.list(s3.value)
     } catch (e) {
-      throw new Error("Error occurred while checking if object exists:", e);
+      throw new Error("Error occurred while checking if object exists:");
     }
   };
 

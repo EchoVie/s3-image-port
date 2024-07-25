@@ -215,9 +215,13 @@ const openSort = ref(false);
 // search
 const searchTerm = ref("");
 const debouncedSearchTerm = refDebounced(searchTerm, 300);
+const { s3: state } = storeToRefs(useSettingsStore());
 
 // prefix
 const prefix: Ref<string> = ref("");
+watchEffect(() => {
+  prefix.value = state.value.keyPrefix
+});
 const availablePrefixes: ComputedRef<string[]> = computed(() => [
   "",
   ...new Set(

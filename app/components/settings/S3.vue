@@ -21,12 +21,18 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
   toast.add({
     title: t("settings.s3.submitFormButton.message.try.title"),
   });
-  await settings.test();
-  isTestingConnectivity.value = false;
+  try {
+    await settings.test();
+    isTestingConnectivity.value = false;
 
-  toast.add({
-    title: t(`settings.s3.submitFormButton.message.success.title`),
-  });
+    toast.add({
+      title: t(`settings.s3.submitFormButton.message.success.title`),
+    });
+  } catch (error) { 
+    toast.add({
+      title: t(`settings.s3.submitFormButton.message.fail.title`),
+    });
+  }
 }
 </script>
 
@@ -48,21 +54,6 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
     >
       <UInput
         v-model="state.bucket"
-        :trailing-icon="
-          error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined
-        "
-      />
-    </UFormGroup>
-
-    <UFormGroup
-      v-slot="{ error }"
-      :label="$t('settings.s3.form.region.title')"
-      :description="$t('settings.s3.form.region.description')"
-      name="region"
-      :error="!state.region && $t('settings.s3.form.region.error')"
-    >
-      <UInput
-        v-model="state.region"
         :trailing-icon="
           error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined
         "
@@ -118,6 +109,22 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
           @click="showSecretAccessKey = !showSecretAccessKey"
         />
       </UButtonGroup>
+    </UFormGroup>
+
+    <UFormGroup
+      v-slot="{ error }"
+      :label="$t('settings.s3.form.region.title')"
+      :description="$t('settings.s3.form.region.description')"
+      name="region"
+      required
+      :error="!state.region && $t('settings.s3.form.region.error')"
+    >
+      <UInput
+        v-model="state.region"
+        :trailing-icon="
+          error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined
+        "
+      />
     </UFormGroup>
 
     <UFormGroup

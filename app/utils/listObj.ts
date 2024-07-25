@@ -60,8 +60,7 @@ async function list(
         category: photo.Key.split("/")[0],
         url: key2Url(photo.Key, config),
       };
-    })
-    .filter((photo) => photo.Key.startsWith(config.keyPrefix)) as Photo[];
+    }) as Photo[];
   return {
     contents,
     IsTruncated: response.IsTruncated,

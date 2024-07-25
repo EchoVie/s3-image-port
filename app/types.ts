@@ -7,9 +7,9 @@ export interface UploadedFileLinkObj {
 
 export interface Photo {
   Key: string;
-  LastModified: string;
-  category: string;
   url: string;
+  LastModified?: string;
+  category?: string;
 }
 
 export interface S3Settings {

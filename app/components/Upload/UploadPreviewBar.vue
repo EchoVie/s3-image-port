@@ -46,18 +46,19 @@ defineEmits(["deleteFile"]);
 const props = defineProps<{ file: File }>();
 
 const { file } = toRefs(props);
-const config = ref<UploadFileConfig>({
+const config = ref<UploadFileConfig & { prefix: string }>({
   compressionMaxSize: settingsStore.app.compressionMaxSize,
   compressionMaxWidthOrHeight: settingsStore.app.compressionMaxWidthOrHeight,
   convertType: settingsStore.app.convertType,
   keyTemplate: settingsStore.app.keyTemplate,
+  prefix: settingsStore.s3.keyPrefix,
 });
 
 const key = computed(() =>
   genKey(file.value, {
     keyTemplate: config.value.keyTemplate,
     type: config.value.convertType,
-    prefix: settingsStore.s3.keyPrefix,
+    prefix: config.value.prefix,
   }),
 );
 

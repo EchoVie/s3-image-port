@@ -6,7 +6,7 @@
     <PhotoGrid :photos="items" />
   </UContainer>
 </template>
-
+ 
 <script setup lang="ts">
 import type { UploadedFileLinkObj } from "~/types";
 const settings = useSettingsStore();

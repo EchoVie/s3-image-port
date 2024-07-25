@@ -31,7 +31,7 @@
       <!-- Info Button -->
       <PhotoCardInfo :photo="photo" :popper="{ placement: 'bottom-end' }" />
       <!-- Delete Button -->
-      <BaseSecondConfirm :action="() => $emit('deletePhoto', photo.Key)" danger>
+      <!-- <BaseSecondConfirm :action="() => $emit('deletePhoto', photo.Key)" danger>
         <UButton
           aria-label="Delete"
           icon="i-mingcute-delete-3-line"
@@ -39,7 +39,7 @@
           color="white"
           size="lg"
         />
-      </BaseSecondConfirm>
+      </BaseSecondConfirm> -->
     </div>
     <img :src="photo.url" class="w-full h-full object-contain" />
   </div>

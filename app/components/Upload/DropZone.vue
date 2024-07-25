@@ -46,6 +46,7 @@ const { open, onChange } = useFileDialog({
   accept: "image/*",
   // TODO: make select both files and directories work
   // directory: true, // select directory INSTEAD OF files
+  reset: true,
   multiple: true,
 });
 onChange((fileList) => {
